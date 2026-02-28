@@ -1,0 +1,415 @@
+/* ============================================================================
+   COLORIMETRÍA TIPO TERMINAL - SYNTAX HIGHLIGHTING EN BLOQUES
+   ============================================================================ */
+
+/* Estilos base para inputs con colorimetría */
+.editor-input,
+textarea.editor-input {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+/* Colorimetría en bloques de texto (modo claro) */
+.text-card textarea.editor-input {
+    background: #fafafa;
+    color: #24292e;
+}
+
+/* Negritas y strong - Color keyword (rosa/rojo) */
+.editor-input::selection {
+    background: var(--syntax-keyword);
+    color: white;
+}
+
+/* Aplicar colores a markdown en inputs */
+.markdown-card textarea.editor-input,
+.text-card textarea.editor-input {
+    caret-color: var(--syntax-function);
+}
+
+/* Modo oscuro - Colorimetría tipo terminal */
+body.dark-mode .text-card textarea.editor-input,
+body.dark-mode .markdown-card textarea.editor-input {
+    background: #000000;
+    color: #c9d1d9;
+    border-color: #1a1a1a;
+}
+
+body.dark-mode .editor-input::placeholder {
+    color: var(--syntax-comment);
+}
+
+body.dark-mode .editor-input:focus {
+    border-color: var(--syntax-function);
+    box-shadow: 0 0 0 3px rgba(139, 233, 253, 0.1);
+}
+
+/* Lista - Bullets con color especial */
+.list-card textarea.editor-input,
+.numbered-card textarea.editor-input {
+    background: #fafafa;
+    color: #24292e;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+body.dark-mode .list-card textarea.editor-input,
+body.dark-mode .numbered-card textarea.editor-input {
+    background: #000000;
+    color: var(--syntax-keyword);
+    border-color: #1a1a1a;
+    caret-color: var(--syntax-keyword);
+}
+
+/* Títulos - Colores vibrantes */
+.title-card input.editor-input {
+    font-weight: 600;
+    font-size: 1.1em;
+    color: var(--primary);
+}
+
+body.dark-mode .title-card input.editor-input {
+    background: #000000;
+    color: var(--syntax-tag);
+    border-color: #1a1a1a;
+    font-weight: 700;
+}
+
+.subtitle-card input.editor-input {
+    font-weight: 500;
+    color: var(--syntax-function);
+}
+
+body.dark-mode .subtitle-card input.editor-input {
+    background: #000000;
+    color: var(--syntax-function);
+    border-color: #1a1a1a;
+}
+
+/* Subtítulos y sub-subtítulos */
+body.dark-mode .subsubtitle-card input.editor-input,
+body.dark-mode .subtitle-italic-card input.editor-input {
+    background: #000000;
+    color: var(--syntax-variable);
+    border-color: #1a1a1a;
+}
+
+/* Código - Mantener estilo oscuro */
+.code-input {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-color: #333333;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+body.dark-mode .code-input {
+    background: #000000;
+    color: #c9d1d9;
+    border-color: #1a1a1a;
+}
+
+/* Tablas - Grid con colores */
+body.dark-mode .table-grid input {
+    background: #0d1117;
+    color: #c9d1d9;
+    border-color: #30363d;
+}
+
+body.dark-mode .table-grid input:nth-child(-n+10) {
+    background: #161b22;
+    color: var(--syntax-tag);
+    font-weight: 600;
+}
+
+body.dark-mode .table-grid input:focus {
+    border-color: var(--syntax-function);
+    box-shadow: 0 0 0 2px rgba(139, 233, 253, 0.15);
+}
+
+/* Referencias - Color especial */
+.ref-card input.editor-input {
+    color: var(--syntax-string);
+    font-style: italic;
+}
+
+body.dark-mode .ref-card input.editor-input {
+    background: #0d1117;
+    color: var(--syntax-string);
+    border-color: #30363d;
+}
+
+/* Citas IEEE - Color morado */
+.citation-card input.editor-input,
+.citation-card textarea.editor-input {
+    color: var(--syntax-number);
+}
+
+body.dark-mode .citation-card input.editor-input,
+body.dark-mode .citation-card textarea.editor-input {
+    background: #0d1117;
+    color: var(--syntax-number);
+    border-color: #30363d;
+}
+
+/* BibTeX - Colores especiales */
+.bibliography-card input.editor-input,
+.bibliography-card textarea.editor-input {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    color: var(--syntax-function);
+}
+
+body.dark-mode .bibliography-card input.editor-input,
+body.dark-mode .bibliography-card textarea.editor-input {
+    background: #0d1117;
+    color: var(--syntax-function);
+    border-color: #30363d;
+}
+
+/* Imágenes - Verde */
+.image-card input.editor-input {
+    color: var(--syntax-string);
+}
+
+body.dark-mode .image-card input.editor-input {
+    background: #0d1117;
+    color: var(--syntax-string);
+    border-color: #30363d;
+}
+
+/* Header - Colores sutiles */
+.header-card input.editor-input {
+    color: #586069;
+    font-size: 0.9em;
+}
+
+body.dark-mode .header-card input.editor-input {
+    background: #0d1117;
+    color: #8b949e;
+    border-color: #30363d;
+}
+
+/* Fórmulas - Color púrpura */
+.formula-card textarea.editor-input {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    color: var(--syntax-number);
+}
+
+body.dark-mode .formula-card textarea.editor-input {
+    background: #0d1117;
+    color: var(--syntax-number);
+    border-color: #30363d;
+}
+
+/* AI Declaration - Rojo brillante */
+.ai-card textarea.editor-input {
+    color: var(--syntax-operator);
+}
+
+body.dark-mode .ai-card textarea.editor-input {
+    background: #0d1117;
+    color: var(--syntax-operator);
+    border-color: #30363d;
+}
+
+/* Mermaid - Cyan */
+.mermaid-card textarea.editor-input {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    color: var(--syntax-function);
+}
+
+body.dark-mode .mermaid-card textarea.editor-input {
+    background: #0d1117;
+    color: var(--syntax-function);
+    border-color: #30363d;
+}
+
+/* Inputs de grid (autor, materia, etc.) */
+body.dark-mode .grid-inputs input {
+    background: #0d1117;
+    color: #c9d1d9;
+    border-color: #30363d;
+}
+
+body.dark-mode .grid-inputs input:focus {
+    border-color: var(--syntax-function);
+    box-shadow: 0 0 0 2px rgba(139, 233, 253, 0.15);
+}
+
+/* Select en modo oscuro */
+body.dark-mode select.editor-input {
+    background: #0d1117;
+    color: #c9d1d9;
+    border-color: #30363d;
+}
+
+/* Botones especiales en modo oscuro */
+body.dark-mode .btn-ai {
+    background: var(--syntax-operator) !important;
+    color: white !important;
+}
+
+body.dark-mode .btn-save,
+body.dark-mode .btn-print {
+    background: var(--syntax-function) !important;
+    color: #0d1117 !important;
+}
+
+body.dark-mode .btn-import {
+    background: var(--syntax-string) !important;
+    color: #0d1117 !important;
+}
+
+/* Controles de tabla en modo oscuro */
+body.dark-mode .table-controls label {
+    color: #8b949e;
+}
+
+body.dark-mode .table-controls input[type="number"] {
+    background: #0d1117;
+    color: #c9d1d9;
+    border-color: #30363d;
+}
+
+body.dark-mode .table-controls .btn-add-row {
+    background: var(--syntax-string);
+    color: #0d1117;
+}
+
+body.dark-mode .table-controls .btn-remove-row {
+    background: var(--syntax-operator);
+    color: white;
+}
+
+/* Block type label con color */
+.block-type {
+    font-size: 0.75em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+body.dark-mode .block-type {
+    color: #8b949e;
+}
+
+/* Colores por tipo de bloque */
+body.dark-mode .title-card .block-type {
+    color: var(--syntax-tag);
+}
+
+body.dark-mode .subtitle-card .block-type {
+    color: var(--syntax-function);
+}
+
+body.dark-mode .text-card .block-type,
+body.dark-mode .markdown-card .block-type {
+    color: #c9d1d9;
+}
+
+body.dark-mode .list-card .block-type,
+body.dark-mode .numbered-card .block-type {
+    color: var(--syntax-keyword);
+}
+
+body.dark-mode .code-card .block-type {
+    color: var(--syntax-variable);
+}
+
+body.dark-mode .ref-card .block-type,
+body.dark-mode .citation-card .block-type {
+    color: var(--syntax-string);
+}
+
+body.dark-mode .image-card .block-type {
+    color: var(--syntax-string);
+}
+
+body.dark-mode .ai-card .block-type {
+    color: var(--syntax-operator);
+}
+
+body.dark-mode .table-card .block-type {
+    color: var(--syntax-function);
+}
+
+body.dark-mode .formula-card .block-type,
+body.dark-mode .mermaid-card .block-type {
+    color: var(--syntax-number);
+}
+
+body.dark-mode .bibliography-card .block-type {
+    color: var(--syntax-function);
+}
+
+/* Actualizar todos los inputs a negro OLED */
+body.dark-mode .table-grid input {
+    background: #000000;
+    color: #c9d1d9;
+    border-color: #1a1a1a;
+}
+
+body.dark-mode .table-grid input:nth-child(-n+10) {
+    background: #0a0a0a;
+    color: var(--syntax-tag);
+    font-weight: 600;
+}
+
+body.dark-mode .ref-card input.editor-input,
+body.dark-mode .citation-card input.editor-input,
+body.dark-mode .citation-card textarea.editor-input,
+body.dark-mode .bibliography-card input.editor-input,
+body.dark-mode .bibliography-card textarea.editor-input,
+body.dark-mode .image-card input.editor-input,
+body.dark-mode .header-card input.editor-input,
+body.dark-mode .formula-card textarea.editor-input,
+body.dark-mode .ai-card textarea.editor-input,
+body.dark-mode .mermaid-card textarea.editor-input {
+    background: #000000;
+    border-color: #1a1a1a;
+}
+
+body.dark-mode .grid-inputs input {
+    background: #000000;
+    color: #c9d1d9;
+    border-color: #1a1a1a;
+}
+
+body.dark-mode select.editor-input {
+    background: #000000;
+    color: #c9d1d9;
+    border-color: #1a1a1a;
+}
+
+body.dark-mode .table-controls input[type="number"] {
+    background: #000000;
+    color: #c9d1d9;
+    border-color: #1a1a1a;
+}
+
+/* Contenedores negros */
+body.dark-mode #editor-container {
+    background: #000000;
+}
+
+body.dark-mode #preview-container {
+    background: #000000;
+}
+
+body.dark-mode .preview-paper {
+    background: #0a0a0a;
+    color: var(--text-primary);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9);
+}
+
+body.dark-mode .block-card {
+    background: #0a0a0a;
+    border-color: #1a1a1a;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode .block-card:hover {
+    border-color: var(--primary-dark, var(--primary));
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.9);
+}

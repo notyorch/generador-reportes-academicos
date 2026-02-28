@@ -1,0 +1,607 @@
+/* ============================================================================
+   RIBBON/TOOLBAR ESTILO MICROSOFT OFFICE
+   ============================================================================ */
+
+/* Contenedor principal del ribbon */
+.ribbon-container {
+    display: flex;
+    flex-direction: column;
+    background: #f3f3f3;
+    border-bottom: 1px solid #d4d4d4;
+    user-select: none;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Barra de título superior */
+.title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background: white;
+    border-bottom: 1px solid #e1e1e1;
+    height: 42px;
+}
+
+.app-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 0.95em;
+    color: #202020;
+}
+
+.app-title .material-symbols-outlined {
+    font-size: 20px;
+    color: var(--primary);
+}
+
+.title-bar-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.theme-dropdown {
+    padding: 4px 8px;
+    border: 1px solid #d1d1d1;
+    border-radius: 3px;
+    background: white;
+    font-size: 0.85em;
+    cursor: pointer;
+    outline: none;
+}
+
+.theme-dropdown:hover {
+    border-color: #adadad;
+}
+
+.icon-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.icon-btn:hover {
+    background: #e5e5e5;
+    transform: scale(1.1);
+}
+
+.icon-btn:active {
+    transform: scale(0.95);
+}
+
+.icon-btn .material-symbols-outlined {
+    font-size: 20px;
+}
+
+/* Pestañas del ribbon */
+.ribbon-tabs {
+    display: flex;
+    background: #f3f3f3;
+    padding: 0 8px;
+    gap: 2px;
+}
+
+.ribbon-tab {
+    padding: 8px 20px;
+    background: transparent;
+    border: none;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: #444;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.ribbon-tab::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(-50%);
+}
+
+.ribbon-tab:hover {
+    background: #e8e8e8;
+    color: #202020;
+    transform: translateY(-2px);
+}
+
+.ribbon-tab:hover::after {
+    width: 80%;
+}
+
+.ribbon-tab.active {
+    background: white;
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.ribbon-tab.active::after {
+    width: 100%;
+}
+
+/* Contenido del ribbon */
+.ribbon-content {
+    background: white;
+    padding: 8px 12px;
+    min-height: 90px;
+}
+
+.ribbon-panel {
+    display: none;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.ribbon-panel.active {
+    display: flex;
+}
+
+/* Grupos del ribbon */
+.ribbon-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.group-label {
+    font-size: 0.7em;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    font-weight: 600;
+    padding: 0 4px;
+}
+
+.ribbon-buttons {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.ribbon-buttons-vertical {
+    flex-direction: column;
+}
+
+/* Botones del ribbon */
+.ribbon-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.75em;
+    color: #333;
+    min-width: 70px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.ribbon-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(0, 120, 212, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.4s, height 0.4s;
+}
+
+.ribbon-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.ribbon-btn:hover {
+    background: #e5f3ff;
+    border-color: #0078d4;
+    color: #0078d4;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 120, 212, 0.2);
+}
+
+.ribbon-btn:active {
+    background: #cce4f7;
+    transform: translateY(0) scale(0.97);
+    box-shadow: 0 2px 4px rgba(0, 120, 212, 0.15);
+}
+
+.ribbon-btn .material-symbols-outlined {
+    font-size: 24px;
+}
+
+.ribbon-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.ribbon-btn:disabled:hover {
+    background: #fafafa;
+    border-color: #e0e0e0;
+    color: #333;
+}
+
+/* Botones especiales */
+.btn-special {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: #667eea;
+}
+
+.btn-special:hover {
+    background: linear-gradient(135deg, #5568d3 0%, #63408a 100%);
+    border-color: #5568d3;
+    color: white;
+}
+
+.btn-action {
+    background: var(--secondary);
+    color: white;
+    border-color: var(--secondary);
+    font-weight: 600;
+}
+
+.btn-action:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+/* Separador vertical */
+.ribbon-separator {
+    width: 1px;
+    background: #d4d4d4;
+    margin: 0 8px;
+    align-self: stretch;
+}
+
+/* Select del ribbon */
+.ribbon-select {
+    padding: 8px 12px;
+    border: 1px solid #d1d1d1;
+    border-radius: 3px;
+    background: white;
+    font-size: 0.85em;
+    cursor: pointer;
+    min-width: 150px;
+}
+
+.ribbon-select:hover {
+    border-color: #adadad;
+}
+
+.ribbon-select:focus {
+    outline: none;
+    border-color: #0078d4;
+}
+
+/* Información en el ribbon */
+.ribbon-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px 8px;
+    font-size: 0.75em;
+    color: #666;
+}
+
+.info-line {
+    white-space: nowrap;
+}
+
+/* ============================================================================
+   MODO OSCURO - RIBBON
+   ============================================================================ */
+
+body.dark-mode .ribbon-container {
+    background: #000000;
+    border-bottom-color: #1a1a1a;
+}
+
+body.dark-mode .title-bar {
+    background: #000000;
+    border-bottom-color: #1a1a1a;
+}
+
+body.dark-mode .app-title {
+    color: #fff;
+}
+
+body.dark-mode .theme-dropdown {
+    background: #1a1a1a;
+    border-color: #2a2a2a;
+    color: #fff;
+}
+
+body.dark-mode .theme-dropdown:hover {
+    border-color: #3a3a3a;
+}
+
+body.dark-mode .theme-dropdown option {
+    background: #1a1a1a;
+}
+
+body.dark-mode .icon-btn {
+    color: #fff;
+}
+
+body.dark-mode .icon-btn:hover {
+    background: #1a1a1a;
+}
+
+body.dark-mode .ribbon-tabs {
+    background: #000000;
+}
+
+body.dark-mode .ribbon-tab {
+    color: #b4b4b4;
+}
+
+body.dark-mode .ribbon-tab:hover {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+body.dark-mode .ribbon-tab.active {
+    background: #0a0a0a;
+    color: var(--primary-dark, var(--primary));
+    border-bottom-color: var(--primary-dark, var(--primary));
+}
+
+body.dark-mode .ribbon-content {
+    background: #0a0a0a;
+}
+
+body.dark-mode .group-label {
+    color: #8b949e;
+}
+
+body.dark-mode .ribbon-btn {
+    background: #1a1a1a;
+    border-color: #2a2a2a;
+    color: #e4e4e4;
+}
+
+body.dark-mode .ribbon-btn:hover {
+    background: #2a2a2a;
+    border-color: var(--syntax-function);
+    color: var(--syntax-function);
+}
+
+body.dark-mode .ribbon-btn:active {
+    background: #151515;
+}
+
+body.dark-mode .ribbon-btn:disabled {
+    opacity: 0.3;
+}
+
+body.dark-mode .ribbon-btn:disabled:hover {
+    background: #3e3e3e;
+    border-color: #505050;
+    color: #e4e4e4;
+}
+
+body.dark-mode .btn-special {
+    background: linear-gradient(135deg, #ff79c6 0%, #bd93f9 100%);
+    border-color: #ff79c6;
+}
+
+body.dark-mode .btn-special:hover {
+    background: linear-gradient(135deg, #ff6bb8 0%, #a67ee8 100%);
+    border-color: #ff6bb8;
+}
+
+body.dark-mode .btn-action {
+    background: var(--syntax-function);
+    color: #0d1117;
+    border-color: var(--syntax-function);
+}
+
+body.dark-mode .btn-action:hover {
+    background: var(--syntax-string);
+    border-color: var(--syntax-string);
+    color: #0d1117;
+}
+
+body.dark-mode .ribbon-separator {
+    background: #404040;
+}
+
+body.dark-mode .ribbon-select {
+    background: #1a1a1a;
+    border-color: #2a2a2a;
+    color: #e4e4e4;
+}
+
+body.dark-mode .ribbon-select:hover {
+    border-color: #3a3a3a;
+}
+
+body.dark-mode .ribbon-select:focus {
+    border-color: var(--syntax-function);
+}
+
+body.dark-mode .ribbon-select option {
+    background: #1a1a1a;
+}
+
+body.dark-mode .ribbon-info {
+    color: #8b949e;
+}
+
+/* ============================================================================
+   LAYOUT AJUSTADO
+   ============================================================================ */
+
+body {
+    flex-direction: column;
+}
+
+.workspace {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+/* Ajustar workspace para que funcione con ribbon superior */
+#editor-container,
+#preview-container {
+    height: calc(100vh - 160px); /* Restar altura del ribbon */
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+    .ribbon-btn {
+        min-width: 60px;
+        padding: 6px 8px;
+    }
+    
+    .ribbon-btn span:not(.material-symbols-outlined) {
+        font-size: 0.7em;
+    }
+    
+    .group-label {
+        font-size: 0.65em;
+    }
+}
+
+@media (max-width: 768px) {
+    .ribbon-content {
+        overflow-x: auto;
+    }
+    
+    .ribbon-panel {
+        flex-wrap: nowrap;
+        min-width: max-content;
+    }
+    
+    .app-title span:last-child {
+        display: none;
+    }
+    
+    #editor-container,
+    #preview-container {
+        height: calc(100vh - 140px);
+    }
+}
+
+/* Ocultar el antiguo toolbox */
+.toolbox {
+    display: none !important;
+}
+
+/* ============================================================================
+   IMPRESIÓN - OCULTAR RIBBON
+   ============================================================================ */
+
+@media print {
+    .ribbon-container {
+        display: none !important;
+    }
+    
+    #editor-container,
+    #preview-container {
+        height: auto !important;
+    }
+}
+
+/* ============================================================================
+   DIVISOR REDIMENSIONABLE (RESIZER)
+   ============================================================================ */
+
+.resizer {
+    width: 5px;
+    background: #d4d4d4;
+    cursor: col-resize;
+    position: relative;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.resizer:hover {
+    background: var(--secondary);
+}
+
+.resizer::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 3px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+.resizer.resizing {
+    background: var(--primary);
+}
+
+/* Modo oscuro */
+body.dark-mode .resizer {
+    background: #2a2a2a;
+}
+
+body.dark-mode .resizer:hover {
+    background: var(--syntax-function);
+}
+
+body.dark-mode .resizer::after {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .resizer.resizing {
+    background: var(--syntax-function);
+}
+
+/* Ajustar workspace para soportar resizer */
+.workspace {
+    display: flex;
+    flex-direction: row;
+}
+
+#editor-container {
+    flex: 1;
+    min-width: 300px;
+    width: 50%;
+}
+
+#preview-container {
+    flex: 1;
+    min-width: 300px;
+    width: 50%;
+}

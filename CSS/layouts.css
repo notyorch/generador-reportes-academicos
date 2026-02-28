@@ -1,0 +1,536 @@
+/* ============================================================================
+   SISTEMA DE VISTAS/LAYOUTS
+   ============================================================================ */
+
+/* Ocultar containers especiales por defecto */
+#json-editor-container,
+#citations-panel {
+    display: none;
+}
+
+/* Layout por defecto - Ya está configurado en ribbon.css */
+.workspace.layout-default {
+    flex-direction: row;
+}
+
+.workspace.layout-default #editor-container {
+    display: block;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.workspace.layout-default #resizer {
+    display: block;
+}
+
+.workspace.layout-default #preview-container {
+    display: block;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.workspace.layout-default #json-editor-container,
+.workspace.layout-default #citations-panel {
+    display: none;
+}
+
+/* Layout 2: Solo JSON */
+.workspace.layout-json-editor {
+    flex-direction: row;
+}
+
+.workspace.layout-json-editor #editor-container,
+.workspace.layout-json-editor #resizer,
+.workspace.layout-json-editor #preview-container,
+.workspace.layout-json-editor #citations-panel {
+    display: none !important;
+}
+
+.workspace.layout-json-editor #json-editor-container {
+    display: flex !important;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Layout 3: Solo preview */
+.workspace.layout-preview-only {
+    flex-direction: row;
+    position: relative;
+}
+
+.workspace.layout-preview-only #editor-container,
+.workspace.layout-preview-only #resizer,
+.workspace.layout-preview-only #json-editor-container,
+.workspace.layout-preview-only #citations-panel {
+    display: none !important;
+}
+
+.workspace.layout-preview-only #preview-container {
+    display: block;
+    flex: 1;
+    width: 100%;
+    overflow: auto;
+    padding: 40px;
+    transform-origin: top center;
+    transition: transform 0.2s ease;
+}
+
+/* Layout 4: Preview arriba, editor abajo (vertical) */
+.workspace.layout-vertical {
+    flex-direction: column;
+}
+
+.workspace.layout-vertical #preview-container {
+    display: block;
+    flex: 1;
+    width: 100%;
+    overflow-y: auto;
+    border-bottom: 1px solid #e0e0e0;
+    order: 1;
+}
+
+.workspace.layout-vertical #resizer {
+    display: block;
+    width: 100%;
+    height: 5px;
+    cursor: row-resize;
+    order: 2;
+}
+
+.workspace.layout-vertical #editor-container {
+    display: block;
+    flex: 1;
+    width: 100%;
+    overflow-y: auto;
+    border-right: none;
+    order: 3;
+}
+
+.workspace.layout-vertical #json-editor-container,
+.workspace.layout-vertical #citations-panel {
+    display: none;
+}
+
+body.dark-mode .workspace.layout-vertical #preview-container {
+    border-bottom-color: #2a2a2a;
+}
+
+/* Layout 5: Editor + preview de solo citas */
+.workspace.layout-citations {
+    flex-direction: row;
+}
+
+.workspace.layout-citations #editor-container {
+    display: block;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.workspace.layout-citations #resizer {
+    display: block;
+}
+
+.workspace.layout-citations #preview-container {
+    display: block;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.workspace.layout-citations #json-editor-container,
+.workspace.layout-citations #citations-panel {
+    display: none;
+}
+
+/* Layout 6: Solo editor */
+.workspace.layout-editor-only {
+    flex-direction: row;
+}
+
+.workspace.layout-editor-only #editor-container {
+    display: block;
+    flex: 1;
+    width: 100%;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.workspace.layout-editor-only #resizer,
+.workspace.layout-editor-only #preview-container,
+.workspace.layout-editor-only #json-editor-container,
+.workspace.layout-editor-only #citations-panel {
+    display: none;
+}
+
+/* ============================================================================
+   EDITOR JSON
+   ============================================================================ */
+
+.json-editor-container {
+    background: #1e1e1e;
+    padding: 20px;
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+    height: 100%;
+}
+
+.workspace.layout-json-editor .json-editor-container {
+    display: flex !important;
+}
+
+.json-editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #333;
+}
+
+.json-editor-header h3 {
+    color: #fff;
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.json-editor-textarea {
+    width: 100%;
+    flex: 1;
+    min-height: 400px;
+    background: #0d1117;
+    color: #c9d1d9;
+    border: 2px solid #30363d;
+    border-radius: 8px;
+    padding: 20px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9em;
+    line-height: 1.6;
+    resize: none;
+    overflow-y: auto;
+}
+
+.json-editor-textarea:focus {
+    outline: none;
+    border-color: var(--syntax-function);
+    box-shadow: 0 0 0 3px rgba(139, 233, 253, 0.2);
+}
+
+body.dark-mode .json-editor-container {
+    background: #000000;
+}
+
+body.dark-mode .json-editor-header {
+    border-bottom-color: #1a1a1a;
+}
+
+body.dark-mode .json-editor-textarea {
+    background: #000000;
+    border-color: #1a1a1a;
+}
+
+/* ============================================================================
+   PANEL DE CITAS
+   ============================================================================ */
+
+.citations-panel {
+    background: #f8f9fa;
+    border-left: 1px solid #e0e0e0;
+    overflow-y: auto;
+}
+
+.citations-header {
+    padding: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    background: #fff;
+}
+
+.citations-header h3 {
+    margin: 0;
+    color: var(--primary);
+    font-size: 1.2em;
+}
+
+.citations-content {
+    padding: 20px;
+}
+
+.citation-item {
+    background: white;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.citation-number {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.1em;
+    margin-bottom: 8px;
+}
+
+.citation-text {
+    font-size: 0.9em;
+    line-height: 1.6;
+    color: #333;
+}
+
+.citation-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: #999;
+    font-style: italic;
+}
+
+body.dark-mode .citations-panel {
+    background: #000000;
+    border-left-color: #1a1a1a;
+}
+
+body.dark-mode .citations-header {
+    background: #0a0a0a;
+    border-bottom-color: #1a1a1a;
+}
+
+body.dark-mode .citations-header h3 {
+    color: var(--syntax-function);
+}
+
+body.dark-mode .citation-item {
+    background: #0a0a0a;
+    border-left-color: var(--syntax-function);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.9);
+}
+
+body.dark-mode .citation-number {
+    color: var(--syntax-tag);
+}
+
+body.dark-mode .citation-text {
+    color: #c9d1d9;
+}
+
+body.dark-mode .citation-text em {
+    color: var(--syntax-string);
+}
+
+body.dark-mode .citation-text strong {
+    color: var(--syntax-keyword);
+}
+
+body.dark-mode .citation-empty {
+    color: #666;
+}
+
+body.dark-mode .citation-item:hover {
+    background-color: #111;
+}
+
+/* ============================================================================   ESTILOS PARA PREVIEW DE CITAS
+   ============================================================================ */
+
+.preview-citation,
+.preview-bibliography {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.preview-citation p,
+.preview-bibliography p {
+    margin: 8px 0;
+}
+
+.citation-number,
+.bib-number {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.citation-authors,
+.bib-author {
+    font-weight: 600;
+    font-size: 1.05em;
+    color: #222;
+}
+
+.citation-title,
+.bib-title {
+    font-style: italic;
+    color: #444;
+}
+
+.citation-journal,
+.bib-journal {
+    color: #666;
+    font-size: 0.95em;
+}
+
+.citation-doi,
+.bib-doi {
+    color: #4a90e2;
+    font-size: 0.9em;
+    font-family: monospace;
+}
+
+.bib-type {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    color: #666;
+    background: #f5f5f5;
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+body.dark-mode .preview-citation,
+body.dark-mode .preview-bibliography {
+    background: #0a0a0a;
+    border-left-color: var(--syntax-function);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.9);
+}
+
+body.dark-mode .citation-authors,
+body.dark-mode .bib-author {
+    color: #c9d1d9;
+}
+
+body.dark-mode .citation-title,
+body.dark-mode .bib-title {
+    color: #8b949e;
+}
+
+body.dark-mode .citation-journal,
+body.dark-mode .bib-journal,
+body.dark-mode .bib-year {
+    color: #6e7681;
+}
+
+body.dark-mode .bib-type {
+    background: #000000;
+    color: var(--syntax-keyword);
+    border: 1px solid #1a1a1a;
+}
+
+body.dark-mode .citation-number,
+body.dark-mode .bib-number {
+    color: var(--syntax-tag);
+}
+
+/* ============================================================================   RESPONSIVE PARA LAYOUTS
+   ============================================================================ */
+
+@media (max-width: 768px) {
+    /* En móvil, forzar layout vertical */
+    .workspace:not(.layout-json-editor):not(.layout-preview-only):not(.layout-editor-only) {
+        flex-direction: column !important;
+    }
+    
+    .workspace #editor-container {
+        width: 100% !important;
+        border-right: none !important;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .workspace #preview-container,
+    .workspace #citations-panel {
+        width: 100% !important;
+    }
+    
+    .workspace #resizer {
+        width: 100% !important;
+        height: 5px !important;
+        cursor: row-resize !important;
+    }
+}
+
+/* ============================================================================
+   AJUSTES PARA RESIZER EN LAYOUT VERTICAL
+   ============================================================================ */
+
+.workspace.layout-vertical .resizer::after {
+    width: 40px;
+    height: 3px;
+}
+
+/* ============================================================================
+   CONTROLES DE ZOOM PARA PREVIEW
+   ============================================================================ */
+
+.zoom-controls {
+    position: fixed;
+    bottom: 30px;
+    right: 15px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+    background: rgba(26, 26, 26, 0.95);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.workspace.layout-preview-only .zoom-controls {
+    display: flex;
+    right: 10px;
+}
+
+.zoom-controls button {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: #c9d1d9;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.zoom-controls button:hover {
+    background: #2a2a2a;
+    border-color: #4a90e2;
+    transform: scale(1.15) translateY(-2px);
+    box-shadow: 0 6px 12px rgba(74, 144, 226, 0.3);
+}
+
+.zoom-controls button:active {
+    transform: scale(0.95) translateY(0);
+    box-shadow: 0 2px 4px rgba(74, 144, 226, 0.2);
+}
+
+.zoom-level {
+    color: #c9d1d9;
+    font-size: 14px;
+    text-align: center;
+    padding: 5px 0;
+    font-weight: 600;
+}
+
+body.dark-mode .zoom-controls {
+    background: rgba(0, 0, 0, 0.95);
+    border-color: #1a1a1a;
+}
+
+body.dark-mode .zoom-controls button {
+    background: #000000;
+    border-color: #1a1a1a;
+}
+
+body.dark-mode .zoom-controls button:hover {
+    background: #1a1a1a;
+    border-color: var(--primary-dark, #4a90e2);
+}

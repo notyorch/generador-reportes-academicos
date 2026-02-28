@@ -7,113 +7,377 @@
     <meta name="author" content="Jorge J. Pedrozo Romero">
     <title>Generador de Documentos Académicos</title>
     <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/ribbon.css">
+    <link rel="stylesheet" href="CSS/syntax-colors.css">
+    <link rel="stylesheet" href="CSS/markdown-highlight.css">
+    <link rel="stylesheet" href="CSS/layouts.css">
+    <!-- Inter font for editor readability -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="ASSETS/favicon.png">
 	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <!-- KaTeX para fórmulas matemáticas (solo si hay internet) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" data-optional="true">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" data-optional="true"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" data-optional="true"></script>
+    <!-- Mermaid para diagramas (solo si hay internet) -->
+    <script type="module" data-optional="true">
+        try {
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+            mermaid.initialize({ startOnLoad: false, theme: 'default' });
+            window.mermaid = mermaid;
+        } catch (e) {
+            console.log('Mermaid no disponible (sin internet)');
+        }
+    </script>
+    <!-- Marked para Markdown - Cargado como módulo ESM -->
+    <script type="module" data-optional="true">
+        try {
+            import { marked } from 'https://cdn.jsdelivr.net/npm/marked@11.1.1/+esm';
+            window.marked = marked;
+        } catch (e) {
+            console.log('Marked no disponible');
+        }
+    </script>
 </head>
 <body data-theme="tsw">
 
-    <nav class="toolbox">
-        <!-- Selector de Tema -->
-        <div class="theme-selector">
-            <label style="font-size: 0.85em; margin-bottom: 8px; display: block; opacity: 0.9;">Tema:</label>
-            <select id="themeSelector" onchange="changeTheme(this.value)" style="width: 100%; padding: 8px; border-radius: 5px; border: none; background: rgba(255,255,255,0.1); color: white; cursor: pointer; margin-bottom: 15px;">
-                <option value="tsw">TSW - Tecnológico de Software</option>
-                <option value="upy">UPY - Universidad Politécnica de Yucatán</option>
-                <option value="upp">UPP - Universidad Privada de la Península</option>
-            </select>
+    <!-- RIBBON/TOOLBAR SUPERIOR ESTILO OFFICE -->
+    <div class="ribbon-container">
+        <!-- Barra de título -->
+        <div class="title-bar">
+            <div class="app-title">
+                <span class="material-symbols-outlined">description</span>
+                <span>Generador de Documentos Académicos</span>
+            </div>
+            <div class="title-bar-controls">
+                <select id="themeSelector" onchange="changeTheme(this.value)" class="theme-dropdown">
+                    <option value="tsw">TSW</option>
+                    <option value="upy">UPY</option>
+                    <option value="upp">UPP</option>
+                </select>
+                <button onclick="toggleDarkMode()" id="darkModeBtn" class="icon-btn" title="Alternar modo oscuro">
+                    <span class="material-symbols-outlined">dark_mode</span>
+                </button>
+            </div>
         </div>
 
-        <h3>Bloques</h3>
-		<button onclick="addBlock('header')">
-                <span class="material-symbols-outlined">vertical_align_top</span>
-                <span>&ensp;Encabezado</span>
-            </button>
-            
-            <button onclick="addBlock('title')">
-                <span class="material-symbols-outlined">title</span>
-                <span>&ensp;Título</span>
-            </button>
-            
-            <button onclick="addBlock('subtitle')">
-                <span class="material-symbols-outlined">format_size</span>
-                <span>&ensp;Subtítulo</span>
-            </button>
-            
-            <button onclick="addBlock('text')">
-                <span class="material-symbols-outlined">notes</span>
-                <span>&ensp;Párrafo</span>
-            </button>
-            
-            <button onclick="addBlock('code')">
-                <span class="material-symbols-outlined">code</span>
-                <span>&ensp;Código</span>
-            </button>
-            
-            <button onclick="addBlock('image')">
-                <span class="material-symbols-outlined">image</span>
-                <span>&ensp;Imagen</span>
-            </button>
-            
-            <button onclick="addBlock('table')">
-                <span class="material-symbols-outlined">table_chart</span>
-                <span>&ensp;Tabla</span>
-            </button>
-            
-            <button onclick="addBlock('ref')">
-                <span class="material-symbols-outlined">link</span>
-                <span>&ensp;Referencia</span>
-            </button>
-            
-            <button onclick="addBlock('ai')" class="btn-ai">
-                <span class="material-symbols-outlined">smart_toy</span>
-                <span>&ensp;Declaración IA</span>
-            </button>
-
-			<hr style="border: none; border-top: 1px solid rgba(255,255,255,0.2); margin: 15px 0;">
-
-            <button class="btn-json" onclick="saveJSON()">
-                <span class="material-symbols-outlined">cloud_download</span>
-                <span>&ensp;Guardar Proyecto</span>
-            </button>
-
-            <button class="btn-json" onclick="document.getElementById('loadJSONInput').click()">
-                <span class="material-symbols-outlined">cloud_upload</span>
-                <span>&ensp;Cargar Proyecto</span>
-            </button>
-            <input type="file" id="loadJSONInput" accept=".json" onchange="loadJSON(this)" style="display: none;">
-            
-            <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.2); margin: 15px 0;">
-            
-            <button class="btn-save" onclick="exportTXT()">
-                <span class="material-symbols-outlined">save</span>
-                <span>&ensp;Guardar TXT</span>
-            </button>
-            
-            <button class="btn-print" onclick="window.print()">
-                <span class="material-symbols-outlined">picture_as_pdf</span>
-                <span>&ensp;Imprimir PDF</span>
-            </button>
-
-        <!-- Créditos -->
-        <div class="credits">
-            <p style="font-size: 0.75em; opacity: 0.7; margin: 20px 0 5px 0; text-align: center;">Desarrollado por</p>
-            <p style="font-size: 0.8em; font-weight: bold; margin: 0; text-align: center;">Jorge Javier Pedrozo Romero</p>
-            <p style="font-size: 0.7em; opacity: 0.6; margin: 5px 0 0 0; text-align: center;">v1.0.3 • Enero 2026</p>
+        <!-- Pestañas del Ribbon -->
+        <div class="ribbon-tabs">
+            <button class="ribbon-tab active" onclick="switchTab('inicio')">Inicio</button>
+            <button class="ribbon-tab" onclick="switchTab('insertar')">Insertar</button>
+            <button class="ribbon-tab" onclick="switchTab('bibliografia')">Bibliografía</button>
+            <button class="ribbon-tab" onclick="switchTab('vista')">Vista</button>
+            <button class="ribbon-tab" onclick="switchTab('archivo')">Archivo</button>
         </div>
-    </nav>
 
-    <main class="workspace">
+        <!-- Contenido del Ribbon -->
+        <div class="ribbon-content">
+            <!-- TAB: INICIO -->
+            <div id="tab-inicio" class="ribbon-panel active">
+                <div class="ribbon-group">
+                    <div class="group-label">Estructura</div>
+                    <div class="ribbon-buttons">
+                        <button onclick="addBlock('header')" class="ribbon-btn" title="Encabezado">
+                            <span class="material-symbols-outlined">vertical_align_top</span>
+                            <span>Encabezado</span>
+                        </button>
+                        <button onclick="addBlock('title')" class="ribbon-btn" title="Título">
+                            <span class="material-symbols-outlined">title</span>
+                            <span>Título</span>
+                        </button>
+                        <button onclick="addBlock('subtitle')" class="ribbon-btn" title="Subtítulo">
+                            <span class="material-symbols-outlined">format_size</span>
+                            <span>Subtítulo</span>
+                        </button>
+                        <button onclick="addBlock('subsubtitle')" class="ribbon-btn" title="Sub-subtítulo">
+                            <span class="material-symbols-outlined">text_fields</span>
+                            <span>Sub-sub</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ribbon-separator"></div>
+
+                <div class="ribbon-group">
+                    <div class="group-label">Texto</div>
+                    <div class="ribbon-buttons">
+                        <button onclick="addBlock('text')" class="ribbon-btn" title="Párrafo">
+                            <span class="material-symbols-outlined">notes</span>
+                            <span>Párrafo</span>
+                        </button>
+                        <button onclick="addBlock('markdown')" class="ribbon-btn" title="Markdown">
+                            <span class="material-symbols-outlined">description</span>
+                            <span>Markdown</span>
+                        </button>
+                        <button onclick="addBlock('list')" class="ribbon-btn" title="Lista con viñetas">
+                            <span class="material-symbols-outlined">format_list_bulleted</span>
+                            <span>Lista</span>
+                        </button>
+                        <button onclick="addBlock('numbered')" class="ribbon-btn" title="Lista numerada">
+                            <span class="material-symbols-outlined">format_list_numbered</span>
+                            <span>Numerada</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ribbon-separator"></div>
+
+                <div class="ribbon-group">
+                    <div class="group-label">Edición</div>
+                    <div class="ribbon-buttons">
+                        <button onclick="undo()" class="ribbon-btn" title="Deshacer (Ctrl+Z)">
+                            <span class="material-symbols-outlined">undo</span>
+                            <span>Deshacer</span>
+                        </button>
+                        <button onclick="redo()" class="ribbon-btn" title="Rehacer (Ctrl+Y)">
+                            <span class="material-symbols-outlined">redo</span>
+                            <span>Rehacer</span>
+                        </button>
+                        <button onclick="showVersionHistory()" class="ribbon-btn" title="Historial">
+                            <span class="material-symbols-outlined">history</span>
+                            <span>Versiones</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: INSERTAR -->
+            <div id="tab-insertar" class="ribbon-panel">
+                <div class="ribbon-group">
+                    <div class="group-label">Medios</div>
+                    <div class="ribbon-buttons">
+                        <button onclick="addBlock('image')" class="ribbon-btn" title="Imagen">
+                            <span class="material-symbols-outlined">image</span>
+                            <span>Imagen</span>
+                        </button>
+                        <button onclick="addBlock('table')" class="ribbon-btn" title="Tabla">
+                            <span class="material-symbols-outlined">table_chart</span>
+                            <span>Tabla</span>
+                        </button>
+                        <button onclick="addBlock('code')" class="ribbon-btn" title="Código">
+                            <span class="material-symbols-outlined">code</span>
+                            <span>Código</span>
+                        </button>
+                        <button onclick="addBlock('divider')" class="ribbon-btn" title="Divisor">
+                            <span class="material-symbols-outlined">horizontal_rule</span>
+                            <span>Divisor</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ribbon-separator"></div>
+
+                <div class="ribbon-group">
+                    <div class="group-label">Avanzado</div>
+                    <div class="ribbon-buttons">
+                        <button id="btn-formula" onclick="addBlock('formula')" class="ribbon-btn cdn-required" title="Fórmula LaTeX">
+                            <span class="material-symbols-outlined">functions</span>
+                            <span>Fórmula</span>
+                        </button>
+                        <button id="btn-mermaid" onclick="addBlock('mermaid')" class="ribbon-btn cdn-required" title="Diagrama Mermaid">
+                            <span class="material-symbols-outlined">account_tree</span>
+                            <span>Diagrama</span>
+                        </button>
+                        <button onclick="addBlock('ai')" class="ribbon-btn btn-special" title="Declaración IA">
+                            <span class="material-symbols-outlined">smart_toy</span>
+                            <span>IA</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ribbon-separator"></div>
+
+                <div class="ribbon-group">
+                    <div class="group-label">Referencias</div>
+                    <div class="ribbon-buttons">
+                        <button onclick="addBlock('ref')" class="ribbon-btn" title="Referencia">
+                            <span class="material-symbols-outlined">link</span>
+                            <span>Referencia</span>
+                        </button>
+                        <button onclick="addBlock('citation')" class="ribbon-btn" title="Cita IEEE">
+                            <span class="material-symbols-outlined">format_quote</span>
+                            <span>Cita</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: BIBLIOGRAFÍA -->
+            <div id="tab-bibliografia" class="ribbon-panel">
+                <div class="ribbon-group">
+                    <div class="group-label">Modo de citado</div>
+                    <div class="ribbon-buttons ribbon-buttons-vertical">
+                        <select id="citationModeSelect" onchange="switchCitationMode(this.value)" class="ribbon-select">
+                            <option value="manual">IEEE Manual</option>
+                            <option value="bibtex">BibTeX Universal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="ribbon-separator"></div>
+
+                <div class="ribbon-group">
+                    <div class="group-label">Gestión</div>
+                    <div class="ribbon-buttons">
+                        <button onclick="addBlock('bibliography')" class="ribbon-btn" title="Entrada BibTeX">
+                            <span class="material-symbols-outlined">menu_book</span>
+                            <span>BibTeX</span>
+                        </button>
+                        <button onclick="exportBibFile()" class="ribbon-btn btn-action" title="Exportar .bib">
+                            <span class="material-symbols-outlined">download</span>
+                            <span>Exportar .bib</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: VISTA -->
+            <div id="tab-vista" class="ribbon-panel">
+                <div class="ribbon-group">
+                    <div class="group-label">Layouts</div>
+                    <div class="ribbon-buttons">
+                        <button onclick="setLayout('default')" class="ribbon-btn" title="Vista por defecto">
+                            <span class="material-symbols-outlined">view_sidebar</span>
+                            <span>Por defecto</span>
+                        </button>
+                        <button onclick="setLayout('editor-only')" class="ribbon-btn" title="Solo editor">
+                            <span class="material-symbols-outlined">edit_note</span>
+                            <span>Solo editor</span>
+                        </button>
+                        <button onclick="setLayout('preview-only')" class="ribbon-btn" title="Solo preview">
+                            <span class="material-symbols-outlined">preview</span>
+                            <span>Solo preview</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ribbon-separator"></div>
+
+                <div class="ribbon-group">
+                    <div class="group-label">Layouts avanzados</div>
+                    <div class="ribbon-buttons">
+                        <button onclick="setLayout('json-editor')" class="ribbon-btn" title="Editor JSON">
+                            <span class="material-symbols-outlined">data_object</span>
+                            <span>JSON</span>
+                        </button>
+                        <button onclick="setLayout('vertical')" class="ribbon-btn" title="Preview arriba, editor abajo">
+                            <span class="material-symbols-outlined">swap_vert</span>
+                            <span>Vertical</span>
+                        </button>
+                        <button onclick="setLayout('citations')" class="ribbon-btn" title="Editor + Citas">
+                            <span class="material-symbols-outlined">format_quote</span>
+                            <span>Citas</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ribbon-separator"></div>
+
+                <div class="ribbon-group">
+                    <div class="group-label">Información</div>
+                    <div class="ribbon-info">
+                        <div class="info-line" id="word-count">Palabras: 0</div>
+                        <div class="info-line" id="char-count">Caracteres: 0</div>
+                        <div class="info-line" id="block-count">Bloques: 0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: ARCHIVO -->
+            <div id="tab-archivo" class="ribbon-panel">
+                <div class="ribbon-group">
+                    <div class="group-label">Guardar</div>
+                    <div class="ribbon-buttons">
+                        <button onclick="saveJSON()" class="ribbon-btn btn-action" title="Guardar JSON">
+                            <span class="material-symbols-outlined">save</span>
+                            <span>Guardar</span>
+                        </button>
+                        <button onclick="exportTXT()" class="ribbon-btn btn-action" title="Exportar TXT">
+                            <span class="material-symbols-outlined">description</span>
+                            <span>TXT</span>
+                        </button>
+                        <button onclick="window.print()" class="ribbon-btn btn-action" title="Imprimir PDF">
+                            <span class="material-symbols-outlined">picture_as_pdf</span>
+                            <span>PDF</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ribbon-separator"></div>
+
+                <div class="ribbon-group">
+                    <div class="group-label">Abrir</div>
+                    <div class="ribbon-buttons">
+                        <button onclick="importJSON()" class="ribbon-btn btn-action" title="Importar JSON">
+                            <span class="material-symbols-outlined">upload</span>
+                            <span>Importar</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ribbon-separator"></div>
+
+                <div class="ribbon-group">
+                    <div class="group-label">Información</div>
+                    <div class="ribbon-info">
+                        <div class="info-line">v2.3.0 • Feb 2026</div>
+                        <div class="info-line">Jorge J. Pedrozo R.</div>
+                        <div class="info-line" id="autosave-status">Autoguardado activo</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="workspace" id="workspace">
         <section id="editor-container">
             <!-- Mensaje de bienvenida -->
             <div class="welcome-message">
                 <h2>¡Bienvenido!</h2>
-                <p>Selecciona tu institución arriba y comienza agregando bloques desde el menú lateral.</p>
+                <p>Usa el menú superior para agregar bloques a tu documento.</p>
             </div>
         </section>
         
+        <!-- Divisor redimensionable -->
+        <div id="resizer" class="resizer"></div>
+        
         <section id="preview-container" class="preview-paper"></section>
+
+        <!-- Controles de zoom para vista preview -->
+        <div class="zoom-controls">
+            <button onclick="zoomIn()" title="Acercar (Ctrl++)">
+                <span class="material-symbols-outlined">add</span>
+            </button>
+            <div class="zoom-level" id="zoom-level">100%</div>
+            <button onclick="zoomOut()" title="Alejar (Ctrl+-)">
+                <span class="material-symbols-outlined">remove</span>
+            </button>
+            <button onclick="resetZoom()" title="Restablecer zoom (Ctrl+0)">
+                <span class="material-symbols-outlined">restart_alt</span>
+            </button>
+        </div>
+
+        <!-- Editor JSON (oculto por defecto) -->
+        <section id="json-editor-container" class="json-editor-container">
+            <div class="json-editor-header">
+                <h3>Editor JSON</h3>
+                <button onclick="applyJSONChanges()" class="ribbon-btn btn-action">Aplicar Cambios</button>
+            </div>
+            <textarea id="json-editor" class="json-editor-textarea"></textarea>
+        </section>
+
+        <!-- Panel de citas (oculto por defecto) -->
+        <section id="citations-panel" class="citations-panel" style="display: none;">
+            <div class="citations-header">
+                <h3>Bibliografía</h3>
+            </div>
+            <div id="citations-content" class="citations-content"></div>
+        </section>
     </main>
 
+    <script src="JS/ribbon.js"></script>
+    <script src="JS/markdown-highlight.js"></script>
     <script src="JS/script.js"></script>
+    <script src="JS/layouts.js"></script>
 </body>
 </html>

@@ -1,0 +1,223 @@
+{
+  "version": "2.3.0",
+  "timestamp": "2026-01-31T12:00:00.000Z",
+  "citationMode": "bibtex",
+  "reportData": [
+    {
+      "id": 1738345200000,
+      "type": "header",
+      "hData": {
+        "name": "María González Pérez",
+        "group": "1A",
+        "subject": "Inteligencia Artificial",
+        "prof": "Dr. Roberto Sánchez",
+        "inst": "Universidad Tecnológica de México",
+        "term": "Enero-Abril 2026",
+        "date": "2026-01-31"
+      }
+    },
+    {
+      "id": 1738345201000,
+      "type": "title",
+      "content": "Aplicaciones de Machine Learning en Medicina"
+    },
+    {
+      "id": 1738345202000,
+      "type": "subtitle",
+      "content": "Introducción"
+    },
+    {
+      "id": 1738345203000,
+      "type": "text",
+      "content": "El aprendizaje automático ha revolucionado el campo de la medicina en los últimos años [smith2024]. Diversos estudios demuestran su efectividad en el diagnóstico temprano de enfermedades [garcia2023] y en la predicción de resultados clínicos [jones2022]."
+    },
+    {
+      "id": 1738345204000,
+      "type": "subtitle",
+      "content": "Metodología"
+    },
+    {
+      "id": 1738345205000,
+      "type": "text",
+      "content": "Siguiendo el enfoque propuesto por Smith y Johnson [smith2024], implementamos un modelo de red neuronal profunda. El lenguaje de programación utilizado fue Python [python2023], por su amplio ecosistema de bibliotecas especializadas."
+    },
+    {
+      "id": 1738345206000,
+      "type": "code",
+      "content": "import tensorflow as tf\nimport numpy as np\n\n# Crear modelo\nmodel = tf.keras.Sequential([\n    tf.keras.layers.Dense(128, activation='relu'),\n    tf.keras.layers.Dropout(0.2),\n    tf.keras.layers.Dense(10, activation='softmax')\n])\n\nmodel.compile(optimizer='adam',\n              loss='categorical_crossentropy',\n              metrics=['accuracy'])"
+    },
+    {
+      "id": 1738345207000,
+      "type": "subtitle",
+      "content": "Resultados"
+    },
+    {
+      "id": 1738345208000,
+      "type": "text",
+      "content": "Los resultados obtenidos coinciden con investigaciones previas [smith2024][garcia2023], alcanzando una precisión del 94% en el conjunto de prueba."
+    },
+    {
+      "id": 1738345209000,
+      "type": "subtitle",
+      "content": "Conclusiones"
+    },
+    {
+      "id": 1738345210000,
+      "type": "list",
+      "items": [
+        "El modelo propuesto supera el rendimiento de métodos tradicionales",
+        "Python es la herramienta ideal para implementar soluciones de IA",
+        "Se requiere más investigación en datasets diversos"
+      ]
+    },
+    {
+      "id": 1738345211000,
+      "type": "subtitle",
+      "content": "Referencias"
+    },
+    {
+      "id": 1738345212000,
+      "type": "bibliography",
+      "bibKey": "smith2024",
+      "bibType": "article",
+      "bibData": {
+        "author": "Smith, J. and Johnson, M.",
+        "title": "Deep Learning Applications in Medical Diagnosis",
+        "journal": "Journal of Medical AI",
+        "year": "2024",
+        "volume": "15",
+        "number": "3",
+        "pages": "245--260",
+        "doi": "10.1234/jmai.2024.001",
+        "url": "",
+        "publisher": "",
+        "booktitle": "",
+        "organization": "",
+        "howpublished": "",
+        "note": "",
+        "month": "",
+        "address": "",
+        "edition": ""
+      }
+    },
+    {
+      "id": 1738345213000,
+      "type": "bibliography",
+      "bibKey": "garcia2023",
+      "bibType": "article",
+      "bibData": {
+        "author": "García, P. and Martínez, L.",
+        "title": "Early Disease Detection Using Machine Learning",
+        "journal": "Medical Research Quarterly",
+        "year": "2023",
+        "volume": "42",
+        "number": "2",
+        "pages": "156--178",
+        "doi": "10.5678/mrq.2023.042",
+        "url": "",
+        "publisher": "",
+        "booktitle": "",
+        "organization": "",
+        "howpublished": "",
+        "note": "",
+        "month": "",
+        "address": "",
+        "edition": ""
+      }
+    },
+    {
+      "id": 1738345214000,
+      "type": "bibliography",
+      "bibKey": "jones2022",
+      "bibType": "inproceedings",
+      "bibData": {
+        "author": "Jones, R.",
+        "title": "Predicting Clinical Outcomes with Neural Networks",
+        "journal": "",
+        "year": "2022",
+        "volume": "",
+        "number": "",
+        "pages": "89--102",
+        "doi": "",
+        "url": "",
+        "publisher": "",
+        "booktitle": "International Conference on AI in Healthcare",
+        "organization": "IEEE",
+        "howpublished": "",
+        "note": "",
+        "month": "",
+        "address": "San Francisco, CA",
+        "edition": ""
+      }
+    },
+    {
+      "id": 1738345215000,
+      "type": "bibliography",
+      "bibKey": "python2023",
+      "bibType": "online",
+      "bibData": {
+        "author": "Python Software Foundation",
+        "title": "Python Documentation",
+        "journal": "",
+        "year": "2023",
+        "volume": "",
+        "number": "",
+        "pages": "",
+        "doi": "",
+        "url": "https://docs.python.org",
+        "publisher": "",
+        "booktitle": "",
+        "organization": "",
+        "howpublished": "",
+        "note": "Accessed: 2026-01-31",
+        "month": "",
+        "address": "",
+        "edition": ""
+      }
+    }
+  ],
+  "bibDatabase": {
+    "smith2024": {
+      "type": "article",
+      "author": "Smith, J. and Johnson, M.",
+      "title": "Deep Learning Applications in Medical Diagnosis",
+      "journal": "Journal of Medical AI",
+      "year": "2024",
+      "volume": "15",
+      "number": "3",
+      "pages": "245--260",
+      "doi": "10.1234/jmai.2024.001"
+    },
+    "garcia2023": {
+      "type": "article",
+      "author": "García, P. and Martínez, L.",
+      "title": "Early Disease Detection Using Machine Learning",
+      "journal": "Medical Research Quarterly",
+      "year": "2023",
+      "volume": "42",
+      "number": "2",
+      "pages": "156--178",
+      "doi": "10.5678/mrq.2023.042"
+    },
+    "jones2022": {
+      "type": "inproceedings",
+      "author": "Jones, R.",
+      "title": "Predicting Clinical Outcomes with Neural Networks",
+      "booktitle": "International Conference on AI in Healthcare",
+      "year": "2022",
+      "pages": "89--102",
+      "organization": "IEEE",
+      "address": "San Francisco, CA"
+    },
+    "python2023": {
+      "type": "online",
+      "author": "Python Software Foundation",
+      "title": "Python Documentation",
+      "url": "https://docs.python.org",
+      "year": "2023",
+      "note": "Accessed: 2026-01-31"
+    }
+  },
+  "versionHistory": [],
+  "versionCounter": 1
+}

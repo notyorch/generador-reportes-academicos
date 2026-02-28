@@ -35,6 +35,69 @@ body[data-theme="upp"] {
 }
 
 /* ============================================================================
+   SYNTAX HIGHLIGHTING - MODO CLARO
+   ============================================================================ */
+body {
+    /* Colores de syntax highlighting para modo claro */
+    --syntax-keyword: #d73a49;      /* Rojo - bullets, negritas */
+    --syntax-string: #22863a;       /* Verde - strings, enlaces */
+    --syntax-number: #6f42c1;       /* Púrpura - números */
+    --syntax-comment: #6a737d;      /* Gris - comentarios */
+    --syntax-function: #005cc5;     /* Azul - funciones */
+    --syntax-variable: #e36209;     /* Naranja - variables */
+    --syntax-operator: #d73a49;     /* Rojo - operadores */
+    --syntax-tag: #22863a;          /* Verde - tags */
+}
+
+/* ============================================================================
+   MODO OSCURO - VARIABLES (NEGRO PURO PARA OLED/AMOLED)
+   ============================================================================ */
+body.dark-mode {
+    /* Colores base - Negro puro para OLED */
+    --bg-primary: #000000;
+    --bg-secondary: #0a0a0a;
+    --bg-tertiary: #121212;
+    --text-primary: #e4e4e4;
+    --text-secondary: #b4b4b4;
+    --text-tertiary: #8a8a8a;
+    --border-color: #1f1f1f;
+    --shadow-color: rgba(0, 0, 0, 0.8);
+    
+    /* Botones y controles */
+    --toolbox-bg: #000000;
+    --toolbox-button-bg: #1a1a1a;
+    --toolbox-button-hover: #2a2a2a;
+    
+    /* Colores de syntax highlighting - Paleta tipo terminal */
+    --syntax-keyword: #ff79c6;      /* Rosa/Magenta - bullets, negritas */
+    --syntax-string: #50fa7b;       /* Verde brillante - strings, enlaces */
+    --syntax-number: #bd93f9;       /* Púrpura - números */
+    --syntax-comment: #6272a4;      /* Gris azulado - comentarios */
+    --syntax-function: #8be9fd;     /* Cyan - funciones */
+    --syntax-variable: #f1fa8c;     /* Amarillo - variables */
+    --syntax-operator: #ff5555;     /* Rojo - operadores */
+    --syntax-tag: #ffb86c;          /* Naranja - tags */
+}
+
+body.dark-mode[data-theme="tsw"] {
+    --primary-dark: #4a4d8f;
+    --secondary-dark: #00a0d4;
+    --accent-dark: #00b8e6;
+}
+
+body.dark-mode[data-theme="upy"] {
+    --primary-dark: #7d3bb3;
+    --secondary-dark: #f5b547;
+    --accent-dark: #e9cdf9;
+}
+
+body.dark-mode[data-theme="upp"] {
+    --primary-dark: #2668c4;
+    --secondary-dark: #ff4449;
+    --accent-dark: #92b8e0;
+}
+
+/* ============================================================================
    LAYOUT GENERAL
    ============================================================================ */
 * {
@@ -57,101 +120,610 @@ body {
 }
 
 /* ============================================================================
-   TOOLBOX (BARRA LATERAL IZQUIERDA)
+   TOOLBOX (BARRA LATERAL IZQUIERDA) - DISEÑO PROFESIONAL TIPO NOTION
    ============================================================================ */
 .toolbox { 
-    width: 220px; 
-    background: var(--primary);
-    color: white; 
-    padding: 20px; 
+    width: 280px; 
+    background: #ffffff;
+    color: #1a1a1a;
+    padding: 24px 0;
     display: flex; 
     flex-direction: column; 
-    gap: 8px;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    gap: 0;
+    box-shadow: 1px 0 12px rgba(0,0,0,0.08);
     transition: background 0.3s ease;
+    overflow-y: auto;
+    border-right: 1px solid rgba(0,0,0,0.08);
 }
 
-.toolbox h3 {
-    margin: 0 0 15px 0;
-    font-size: 1.1em;
+/* Scrollbar personalizada */
+.toolbox::-webkit-scrollbar {
+    width: 6px;
+}
+
+.toolbox::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.toolbox::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.1);
+    border-radius: 3px;
+}
+
+.toolbox::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,0,0,0.2);
+}
+
+/* Selector de tema */
+.theme-selector {
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.theme-selector label {
+    display: block;
+    font-size: 0.75em;
+    margin-bottom: 8px;
+    opacity: 0.65;
     font-weight: 600;
-    opacity: 0.95;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
+.theme-selector select {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: white;
+    color: #1a1a1a;
+    font-family: inherit;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theme-selector select:hover {
+    border-color: rgba(0,0,0,0.15);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.theme-selector select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(44, 46, 92, 0.1);
+}
+
+.theme-selector select option {
+    background: white;
+    color: #1a1a1a;
+}
+
+/* Encabezados de sección */
+.toolbox h3 {
+    margin: 24px 20px 12px 20px;
+    font-size: 0.75em;
+    font-weight: 700;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #1a1a1a;
+}
+
+.toolbox h3:first-child {
+    margin-top: 8px;
+}
+
+/* Botones del menú */
 .toolbox button { 
-	/* --- NUEVAS LÍNEAS PARA ALINEACIÓN --- */
-    display: flex;          /* Activa el modo flexible */
-    align-items: center;    /* Centra el contenido verticalmente (mitad de la altura) */
-    gap: 1px;              /* Espacio uniforme entre el icono y el texto */
-    /* ------------------------------------- */
-    padding: 12px 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    margin: 0 12px;
     cursor: pointer; 
     border: none; 
-    border-radius: 6px; 
-    background: rgba(255,255,255,0.15);
-    color: white; 
-    transition: all 0.2s ease;
+    border-radius: 8px;
+    background: transparent;
+    color: #1a1a1a;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-size: 0.9em;
     font-weight: 500;
     text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+
+.toolbox button::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background: var(--primary);
+    opacity: 0.1;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toolbox button:hover::before {
+    width: 100%;
 }
 
 .toolbox button:hover { 
-    background: var(--secondary);
-    transform: translateX(3px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.06);
+    color: var(--primary);
+    transform: translateX(4px);
+}
+
+.toolbox button:hover .material-symbols-outlined {
+    color: var(--primary);
+    transform: scale(1.1);
 }
 
 .toolbox button:active {
-    transform: translateX(1px);
+    transform: translateX(2px) scale(0.98);
 }
 
+.toolbox button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.toolbox button:disabled:hover {
+    background: transparent;
+    color: #1a1a1a;
+}
+
+.toolbox button .material-symbols-outlined {
+    font-size: 1.2em;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Botones especiales */
 .btn-ai {
-    background: var(--accent) !important;
-	color: var(--background) !important;
+    background: var(--primary) !important;
+    color: white !important;
+    margin: 8px 12px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 8px rgba(44, 46, 92, 0.2);
 }
 
 .btn-ai:hover {
-    background: var(--background) !important;
-	color: var(--accent) !important;
-    transform: translateX(5px) !important;
+    opacity: 0.9 !important;
+    transform: translateX(6px) scale(1.02) !important;
+    box-shadow: 0 6px 16px rgba(0, 184, 230, 0.4) !important;
 }
 
-.btn-json {
-    background: #27ae60 !important;
-    font-weight: 600;
-}
-
-.btn-json:hover {
-    background: #229954 !important;
+.btn-ai:active {
+    transform: translateX(4px) scale(0.98) !important;
 }
 
 .btn-save,
 .btn-print {
     background: var(--secondary) !important;
-    font-weight: 600;
+    color: white !important;
+    font-weight: 600 !important;
+    margin: 4px 12px !important;
+    box-shadow: 0 2px 8px rgba(0, 184, 230, 0.2);
 }
 
 .btn-save:hover,
 .btn-print:hover {
-    background: var(--accent) !important;
+    opacity: 0.95 !important;
+    transform: translateX(6px) !important;
+    box-shadow: 0 6px 16px rgba(0, 180, 230, 0.4) !important;
 }
 
-/* Selector de tema */
-.theme-selector select {
-    font-family: inherit;
+.btn-save:active,
+.btn-print:active {
+    transform: translateX(4px) scale(0.98) !important;
 }
 
-.theme-selector select option {
-    background: var(--primary);
-    color: white;
+/* HR personalizado */
+.toolbox hr {
+    margin: 12px 12px;
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.06);
 }
 
 /* Créditos */
 .credits {
     margin-top: auto;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.2);
+    padding: 20px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    background: rgba(0,0,0,0.02);
+    text-align: center;
+}
+
+.credits p {
+    margin: 6px 0;
+    color: #666;
+}
+
+.credits p:first-child {
+    font-size: 0.7em;
+    opacity: 0.6;
+    margin-bottom: 8px;
+}
+
+.credits p:nth-child(2) {
+    font-size: 0.8em;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.credits p:nth-child(3) {
+    font-size: 0.65em;
+    opacity: 0.5;
+}
+
+/* ============================================================================
+   MODO OSCURO - ESTILOS GENERALES
+   ============================================================================ */
+
+/* Toggle de modo oscuro */
+.dark-mode-toggle {
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+body.dark-mode .dark-mode-toggle {
+    border-bottom-color: var(--border-color);
+}
+
+.dark-mode-toggle button {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 10px 16px;
+}
+
+/* Background y colores de texto */
+body.dark-mode {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Toolbox en modo oscuro - NEGRO PURO */
+body.dark-mode .toolbox {
+    background: var(--toolbox-bg);
+    color: #ffffff;
+    border-right-color: #1a1a1a;
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode .toolbox h3 {
+    color: #888888;
+}
+
+body.dark-mode .toolbox button {
+    color: #ffffff;
+    background: var(--toolbox-button-bg);
+}
+
+body.dark-mode .toolbox button:hover {
+    background: var(--toolbox-button-hover);
+    color: #ffffff;
+}
+
+body.dark-mode .toolbox button:hover .material-symbols-outlined {
+    color: var(--primary-dark, var(--primary));
+}
+
+body.dark-mode .toolbox button:disabled {
+    background: transparent;
+}
+
+body.dark-mode .toolbox button:disabled:hover {
+    background: transparent;
+    color: #444444;
+}
+
+/* Selector de tema en modo oscuro */
+body.dark-mode .theme-selector {
+    border-bottom-color: #1a1a1a;
+}
+
+body.dark-mode .theme-selector label {
+    color: #888888;
+}
+
+body.dark-mode .theme-selector select {
+    background: var(--toolbox-button-bg);
+    color: #ffffff;
+    border-color: #2a2a2a;
+}
+
+body.dark-mode .theme-selector select:hover {
+    border-color: var(--primary-dark, var(--primary));
+    background: var(--toolbox-button-hover);
+}
+
+body.dark-mode .theme-selector select option {
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+/* HR en modo oscuro */
+body.dark-mode .toolbox hr {
+    border-top-color: #1a1a1a;
+}
+
+/* Toggle de modo oscuro */
+body.dark-mode .dark-mode-toggle {
+    border-bottom-color: #1a1a1a;
+}
+
+/* Créditos en modo oscuro */
+body.dark-mode .credits {
+    background: #000000;
+    border-top-color: #1a1a1a;
+}
+
+body.dark-mode .credits p {
+    color: #888888;
+}
+
+body.dark-mode .credits p:nth-child(2) {
+    color: #ffffff;
+}
+
+/* Editor en modo oscuro */
+body.dark-mode #editor-container {
+    background: var(--bg-primary);
+}
+
+body.dark-mode .welcome-message {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .welcome-message h2 {
+    color: var(--text-primary);
+}
+
+body.dark-mode .block-card {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+body.dark-mode .block-card:hover {
+    border-color: var(--primary-dark, var(--primary));
+    box-shadow: 0 4px 16px var(--shadow-color);
+}
+
+body.dark-mode .block-type {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .block-card input,
+body.dark-mode .block-card textarea,
+body.dark-mode .block-card select {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .block-card input:focus,
+body.dark-mode .block-card textarea:focus,
+body.dark-mode .block-card select:focus {
+    border-color: var(--primary-dark, var(--primary));
+    background: var(--bg-primary);
+}
+
+body.dark-mode .delete-btn {
+    background: #d32f2f;
+}
+
+body.dark-mode .delete-btn:hover {
+    background: #f44336;
+}
+
+/* Preview en modo oscuro */
+body.dark-mode #preview-container {
+    background: var(--bg-secondary);
+}
+
+body.dark-mode .preview-paper {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    box-shadow: 0 8px 32px var(--shadow-color);
+}
+
+/* Elementos del preview en modo oscuro */
+body.dark-mode .p-title,
+body.dark-mode .p-subtitle,
+body.dark-mode .p-subsubtitle,
+body.dark-mode .p-subtitle-italic,
+body.dark-mode .p-text,
+body.dark-mode .p-list li,
+body.dark-mode .p-numbered li {
+    color: var(--text-primary);
+}
+
+body.dark-mode .p-header hr {
+    border-color: var(--border-color);
+}
+
+body.dark-mode .code-preview {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .code-preview code {
+    color: var(--text-primary);
+}
+
+body.dark-mode .preview-table-container table {
+    border-color: var(--border-color);
+}
+
+body.dark-mode .preview-table-container table th {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .preview-table-container table td {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .preview-table-container table tr:nth-child(even) td {
+    background: var(--bg-secondary);
+}
+
+body.dark-mode .p-ref-ieee,
+body.dark-mode .p-citation {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .p-ai-declaration {
+    background: var(--bg-primary);
+    border-color: var(--primary-dark, var(--primary));
+}
+
+body.dark-mode .p-ai-declaration h3 {
+    color: var(--primary-dark, var(--primary));
+}
+
+body.dark-mode .p-ai-declaration pre {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+/* Drag and drop en modo oscuro */
+body.dark-mode .drag-handle {
+    background: var(--bg-tertiary);
+}
+
+body.dark-mode .drag-handle::before {
+    color: var(--text-tertiary);
+}
+
+body.dark-mode .block-card-container:hover .drag-handle {
+    background: var(--bg-primary);
+}
+
+#autosave-status {
+    font-size: 0.65em !important;
+    opacity: 0.6 !important;
+    margin-top: 8px !important;
+}
+
+/* ============================================================================
+   ESTILOS ESPECÍFICOS DEL TEMA - SIDEBAR
+   ============================================================================ */
+
+/* Tema TSW - Blanco/Azul oscuro */
+body[data-theme="tsw"] .toolbox {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border-right-color: rgba(44, 46, 92, 0.1) !important;
+}
+
+body[data-theme="tsw"] .toolbox button:hover {
+    background: rgba(44, 46, 92, 0.08) !important;
+    color: #2c2e5c !important;
+}
+
+body[data-theme="tsw"] .toolbox h3 {
+    color: #2c2e5c !important;
+}
+
+body[data-theme="tsw"] .theme-selector select:focus {
+    box-shadow: 0 0 0 3px rgba(44, 46, 92, 0.1) !important;
+}
+
+/* Tema UPY - Púrpura Claro */
+body[data-theme="upy"] .toolbox {
+    background: #f8f4ff !important;
+    color: #2d1b4e !important;
+    border-right-color: rgba(123, 58, 237, 0.1) !important;
+}
+
+body[data-theme="upy"] .toolbox button {
+    color: #2d1b4e !important;
+}
+
+body[data-theme="upy"] .toolbox button:hover {
+    background: rgba(123, 58, 237, 0.1) !important;
+    color: #7c3aed !important;
+}
+
+body[data-theme="upy"] .toolbox h3 {
+    color: #7c3aed !important;
+}
+
+body[data-theme="upy"] .theme-selector {
+    border-bottom-color: rgba(123, 58, 237, 0.1) !important;
+}
+
+body[data-theme="upy"] .theme-selector select:focus {
+    box-shadow: 0 0 0 3px rgba(123, 58, 237, 0.1) !important;
+}
+
+/* Tema UPP - Púrpura Oscuro */
+body[data-theme="upp"] .toolbox {
+    background: #4c1d95 !important;
+    color: #f3e8ff !important;
+    border-right-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+body[data-theme="upp"] .toolbox button {
+    color: #f3e8ff !important;
+}
+
+body[data-theme="upp"] .toolbox button:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #c4b5fd !important;
+}
+
+body[data-theme="upp"] .toolbox h3 {
+    color: #e9d5ff !important;
+    opacity: 0.85 !important;
+}
+
+body[data-theme="upp"] .theme-selector {
+    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+body[data-theme="upp"] .theme-selector label {
+    color: #f3e8ff !important;
+}
+
+body[data-theme="upp"] .theme-selector select {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #f3e8ff !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+body[data-theme="upp"] .theme-selector select:hover {
+    border-color: rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+body[data-theme="upp"] .theme-selector select:focus {
+    box-shadow: 0 0 0 3px rgba(196, 181, 253, 0.2) !important;
+}
+
+body[data-theme="upp"] .theme-selector select option {
+    background: #4c1d95 !important;
+    color: #f3e8ff !important;
+}
+
+body[data-theme="upp"] .toolbox button:disabled {
+    opacity: 0.3 !important;
+}
+
+body[data-theme="upp"] .credits {
+    border-top-color: rgba(255, 255, 255, 0.1) !important;
+    background: rgba(0, 0, 0, 0.15) !important;
+}
+
+body[data-theme="upp"] .credits p {
+    color: rgba(243, 232, 255, 0.8) !important;
 }
 
 /* ============================================================================
@@ -163,6 +735,7 @@ body {
     overflow-y: auto; 
     border-right: 1px solid #e0e0e0;
     background: #fafbfc;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Scroll suave */
@@ -199,17 +772,28 @@ body {
    BLOQUES DEL EDITOR - TARJETAS
    ============================================================================ */
 .block-card-container {
-    animation: slideIn 0.3s ease;
+    animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    margin-left: 0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.block-card-container:hover {
+    margin-left: 20px;
 }
 
 @keyframes slideIn {
-    from {
+    0% {
         opacity: 0;
-        transform: translateY(-10px);
+        transform: translateY(-20px) scale(0.95);
     }
-    to {
+    60% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(5px) scale(1.01);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }
 
@@ -221,18 +805,20 @@ body {
     border-radius: 8px;
     border-left: 4px solid var(--secondary);
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .block-card:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    transform: translateY(-4px) scale(1.01);
 }
 
 /* Colores de identidad para los bloques */
 .header-card { 
     border-left-color: var(--secondary);
-    background: linear-gradient(to right, rgba(var(--secondary-rgb), 0.05), white);
+    background: white;
 }
 
 .title-card { 
@@ -261,7 +847,7 @@ body {
 
 .ai-card {
     border-left-color: #e74c3c;
-    background: linear-gradient(to right, rgba(231, 76, 60, 0.05), white);
+    background: white;
 }
 
 .table-card {
@@ -299,7 +885,7 @@ body {
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.85em;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .table-controls .btn-add-row {
@@ -309,6 +895,13 @@ body {
 
 .table-controls .btn-add-row:hover {
     background: #229954;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+}
+
+.table-controls .btn-add-row:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(39, 174, 96, 0.2);
 }
 
 .table-controls .btn-remove-row {
@@ -318,6 +911,13 @@ body {
 
 .table-controls .btn-remove-row:hover {
     background: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+.table-controls .btn-remove-row:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(231, 76, 60, 0.2);
 }
 
 /* Grid de la tabla */
@@ -334,7 +934,7 @@ body {
     border: 2px solid #e0e0e0;
     border-radius: 4px;
     font-size: 0.9em;
-    transition: border-color 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     min-width: 80px; /* Ancho mínimo para evitar celdas muy pequeñas */
     max-width: 100%;
 }
@@ -343,6 +943,7 @@ body {
     outline: none;
     border-color: var(--secondary);
     box-shadow: 0 0 0 3px rgba(var(--secondary-rgb), 0.1);
+    transform: scale(1.02);
 }
 
 /* Cabecera de tabla (primera fila) */
@@ -361,18 +962,22 @@ body {
     border-radius: 6px;
     font-family: inherit;
     font-size: 0.95em;
-    transition: border-color 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .editor-input:focus {
     outline: none;
     border-color: var(--secondary);
     box-shadow: 0 0 0 3px rgba(var(--secondary-rgb), 0.1);
+    transform: translateY(-1px);
 }
 
 textarea.editor-input {
-    min-height: 100px;
-    resize: vertical;
+    min-height: 60px;
+    resize: none;
+    line-height: 1.6;
+    overflow: hidden;
+    padding-bottom: 15px;
 }
 
 .code-input {
@@ -381,16 +986,21 @@ textarea.editor-input {
     background: #282c34;
     color: #abb2bf;
     padding: 12px;
+    padding-bottom: 18px;
     border-radius: 6px;
     min-height: 120px;
-    resize: vertical;
+    resize: none;
     border: 2px solid #21252b;
     line-height: 1.5;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .code-input:focus {
     outline: none;
     border-color: var(--secondary);
+    box-shadow: 0 0 0 4px rgba(var(--secondary-rgb), 0.15);
+    transform: translateY(-2px);
 }
 
 /* Grid de inputs */
@@ -405,12 +1015,14 @@ textarea.editor-input {
     padding: 10px;
     border: 2px solid #e0e0e0;
     border-radius: 6px;
-    transition: border-color 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .grid-inputs input:focus {
     outline: none;
     border-color: var(--secondary);
+    transform: scale(1.02);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* ============================================================================
@@ -432,13 +1044,18 @@ textarea.editor-input {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     box-shadow: 0 2px 6px rgba(231, 76, 60, 0.3);
 }
 
 .delete-btn:hover {
     background: #c0392b;
-    transform: scale(1.15) rotate(90deg);
+    transform: scale(1.2) rotate(180deg);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.5);
+}
+
+.delete-btn:active {
+    transform: scale(0.95) rotate(180deg);
 }
 
 /* ============================================================================
@@ -513,6 +1130,47 @@ textarea.editor-input {
     color: var(--primary);
     padding-bottom: 8px;
     font-weight: 600;
+}
+
+.p-subsubtitle {
+    font-size: 1.25em;
+    margin-top: 20px;
+    color: #333;
+    font-weight: 600;
+}
+
+.p-subtitle-italic {
+    font-size: 1.4em;
+    margin-top: 24px;
+    text-align: center;
+    font-style: italic;
+    color: #333; /* Neutro, sin morado */
+}
+
+/* Divisor de sección */
+.p-divider {
+    border: none;
+    border-top: 2px solid #ccc;
+    margin: 20px 0;
+}
+.p-divider.dashed { border-top-style: dashed; }
+.p-divider.dotted { border-top-style: dotted; }
+
+/* Bibliografía colapsable */
+details.bib-entry {
+    margin: 8px 0;
+}
+details.bib-entry > summary.bib-summary {
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    padding: 6px 8px;
+    background: #f6f6f6;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+}
+details.bib-entry[open] > summary.bib-summary {
+    background: #ececec;
 }
 
 .p-text { 
@@ -680,6 +1338,195 @@ textarea.editor-input {
 }
 
 /* ============================================================================
+   ELEMENTOS DE LA VISTA PREVIA - LISTAS
+   ============================================================================ */
+.p-list {
+    margin: 15px 0;
+    padding-left: 30px;
+    line-height: 1.8;
+}
+
+.p-list li {
+    margin: 8px 0;
+    text-align: justify;
+}
+
+/* ============================================================================
+   ELEMENTOS DE LA VISTA PREVIA - MARKDOWN
+   ============================================================================ */
+.p-markdown {
+    margin: 15px 0;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.p-markdown h1 {
+    font-size: 1.8em;
+    margin: 20px 0 10px 0;
+    color: var(--primary);
+    border-bottom: 2px solid var(--secondary);
+    padding-bottom: 8px;
+}
+
+.p-markdown h2 {
+    font-size: 1.4em;
+    margin: 15px 0 8px 0;
+    color: var(--primary);
+}
+
+.p-markdown h3 {
+    font-size: 1.2em;
+    margin: 12px 0 6px 0;
+    color: var(--primary);
+}
+
+.p-markdown strong {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.p-markdown em {
+    font-style: italic;
+}
+
+.p-markdown code {
+    background: #f4f4f4;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: monospace;
+}
+
+.p-markdown a {
+    color: var(--secondary);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--secondary);
+}
+
+.p-markdown a:hover {
+    text-decoration: underline;
+}
+
+.p-markdown ul, .p-markdown ol {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.p-markdown li {
+    margin: 5px 0;
+}
+
+.p-markdown blockquote {
+    border-left: 4px solid var(--secondary);
+    padding-left: 15px;
+    margin: 15px 0;
+    color: #666;
+    font-style: italic;
+}
+
+.p-markdown p {
+    margin: 10px 0;
+}
+
+/* ============================================================================
+   ELEMENTOS DE LA VISTA PREVIA - LISTAS
+   ============================================================================ */
+.p-formula {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.formula-block {
+    display: block;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+.formula-inline {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+/* ============================================================================
+   ELEMENTOS DE LA VISTA PREVIA - DIAGRAMAS MERMAID
+   ============================================================================ */
+.p-mermaid {
+    margin: 25px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    text-align: center;
+    overflow-x: auto;
+}
+
+.p-mermaid svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ============================================================================
+   TARJETAS DEL EDITOR - NUEVOS TIPOS
+   ============================================================================ */
+.list-card {
+    border-left-color: #667eea;
+    background: white;
+}
+
+.markdown-card {
+    border-left-color: #f093fb;
+    background: white;
+}
+
+.citation-card {
+    border-left-color: #f093fb;
+    background: white;
+}
+
+.formula-card {
+    border-left-color: #4facfe;
+    background: white;
+}
+
+.mermaid-card {
+    border-left-color: #43e97b;
+    background: white;
+}
+
+/* ============================================================================
+   ESTILOS DE CITACIÓN BIBTEX
+   ============================================================================ */
+.citation-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0 2px;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+}
+
+.citation-link:hover {
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+}
+
+.citation-mode-switch {
+    padding: 12px;
+    background: rgba(0,0,0,0.02);
+    border-radius: 6px;
+    margin: 0 12px;
+}
+
+code {
+    background: #f4f4f4;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+/* ============================================================================
    ESTILOS DE IMPRESIÓN
    ============================================================================ */
 @media print {
@@ -694,14 +1541,21 @@ textarea.editor-input {
         display: none !important;
     }
 
-    body {
+    /* Forzar colores claros en impresión independientemente del modo oscuro */
+    body,
+    body.dark-mode {
         margin: 0 !important;
         padding: 0 !important;
         background: white !important;
+        color: black !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
     
     .workspace, 
-    #preview-container {
+    #preview-container,
+    body.dark-mode .workspace,
+    body.dark-mode #preview-container {
         display: block !important;
         height: auto !important;
         overflow: visible !important;
@@ -712,8 +1566,71 @@ textarea.editor-input {
         box-shadow: none !important;
     }
 
-    .preview-paper {
+    .preview-paper,
+    body.dark-mode .preview-paper {
         max-width: 100% !important;
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+    }
+
+    /* Asegurar que todos los textos sean negros */
+    .p-title,
+    .p-subtitle,
+    .p-subsubtitle,
+    .p-subtitle-italic,
+    .p-text,
+    .p-list li,
+    .p-numbered li,
+    body.dark-mode .p-title,
+    body.dark-mode .p-subtitle,
+    body.dark-mode .p-subsubtitle,
+    body.dark-mode .p-subtitle-italic,
+    body.dark-mode .p-text,
+    body.dark-mode .p-list li,
+    body.dark-mode .p-numbered li {
+        color: black !important;
+    }
+
+    /* Tablas con fondo blanco */
+    .preview-table-container table,
+    body.dark-mode .preview-table-container table {
+        border-color: black !important;
+        background: white !important;
+    }
+
+    .preview-table-container table th,
+    .preview-table-container table td,
+    body.dark-mode .preview-table-container table th,
+    body.dark-mode .preview-table-container table td {
+        background: white !important;
+        color: black !important;
+        border-color: black !important;
+    }
+
+    /* Código con fondo blanco */
+    .code-preview,
+    body.dark-mode .code-preview {
+        background: #f5f5f5 !important;
+        border-color: #ccc !important;
+    }
+
+    .code-preview code,
+    body.dark-mode .code-preview code {
+        color: black !important;
+    }
+
+    /* AI Declaration */
+    .p-ai-declaration,
+    body.dark-mode .p-ai-declaration {
+        background: white !important;
+        border-color: var(--primary) !important;
+    }
+
+    .p-ai-declaration pre,
+    body.dark-mode .p-ai-declaration pre {
+        background: #f5f5f5 !important;
+        color: black !important;
     }
 
     .preview-image-container, 
@@ -778,6 +1695,98 @@ textarea.editor-input {
     .p-header hr {
         color: inherit !important;
         border-color: inherit !important;
+    }
+
+    /* ====================================================================
+     * OPTIMIZACIONES PARA PDF CON TEXTO SELECCIONABLE
+     * ==================================================================== */
+    
+    /* Asegurar que todo el texto sea seleccionable */
+    * {
+        -webkit-user-select: text !important;
+        -moz-user-select: text !important;
+        -ms-user-select: text !important;
+        user-select: text !important;
+    }
+
+    /* Renderizado de fuentes optimizado para PDF */
+    body,
+    .preview-paper,
+    .p-title,
+    .p-subtitle,
+    .p-subsubtitle,
+    .p-text,
+    .p-list,
+    .p-numbered,
+    .preview-table-container,
+    .code-preview,
+    .p-ref-ieee,
+    .p-citation,
+    .p-ai-declaration {
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+        text-rendering: optimizeLegibility !important;
+        font-variant-ligatures: common-ligatures !important;
+    }
+
+    /* Asegurar calidad de texto en PDF */
+    .p-title,
+    .p-subtitle,
+    .p-subsubtitle,
+    .p-text,
+    .p-list li,
+    .p-numbered li,
+    .p-ref-ieee,
+    .p-citation,
+    body.dark-mode .p-title,
+    body.dark-mode .p-subtitle,
+    body.dark-mode .p-subsubtitle,
+    body.dark-mode .p-text,
+    body.dark-mode .p-list li,
+    body.dark-mode .p-numbered li,
+    body.dark-mode .p-ref-ieee,
+    body.dark-mode .p-citation {
+        text-shadow: none !important;
+        filter: none !important;
+    }
+
+    /* Forzar renderizado de vectores para imágenes */
+    img {
+        image-rendering: -webkit-optimize-contrast !important;
+        image-rendering: crisp-edges !important;
+    }
+
+    /* Prevenir transformaciones que puedan afectar la selección */
+    .preview-image-container img,
+    .code-preview,
+    .preview-table-container table {
+        transform: none !important;
+        backface-visibility: visible !important;
+    }
+
+    /* Mejorar calidad de fórmulas matemáticas (KaTeX) */
+    .katex,
+    .katex * {
+        color: black !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* Asegurar que los enlaces sean visibles en PDF */
+    a {
+        color: #0066cc !important;
+        text-decoration: underline !important;
+    }
+
+    /* Prevenir truncamiento de contenido */
+    .p-text,
+    .p-list,
+    .p-numbered,
+    .p-ref-ieee,
+    .p-citation {
+        overflow: visible !important;
+        text-overflow: clip !important;
+        white-space: normal !important;
     }
 }
 
@@ -848,43 +1857,623 @@ textarea.editor-input {
     }
 }
 
-
 /* ============================================================================
-   DRAG & DROP - REORDENAR BLOQUES
+   DRAG AND DROP STYLES
    ============================================================================ */
-
 .block-card-container {
+    position: relative;
     cursor: move;
-    cursor: grab;
     transition: all 0.2s ease;
-}
-
-.block-card-container:active {
-    cursor: grabbing;
 }
 
 .block-card-container.dragging {
     opacity: 0.5;
-    transform: scale(0.98);
+    transform: scale(0.95);
+}
+
+.block-card-container.drag-over-top {
+    border-top: 3px solid var(--secondary);
+    padding-top: 8px;
+}
+
+.block-card-container.drag-over-bottom {
+    border-bottom: 3px solid var(--secondary);
+    padding-bottom: 8px;
+}
+
+.drag-handle {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 40px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    opacity: 0;
+    transition: all 0.2s ease;
+    z-index: 5;
+}
+
+.block-card-container:hover .drag-handle {
+    opacity: 1;
+}
+
+.drag-handle:active {
     cursor: grabbing;
 }
 
-.block-card-container.drag-over {
-    border-top: 3px solid var(--secondary);
-    margin-top: 10px;
-    padding-top: 10px;
+.drag-handle::before {
+    content: '⋮⋮';
+    color: rgba(0,0,0,0.4);
+    font-size: 14px;
+    letter-spacing: -2px;
 }
 
-@keyframes dropAnimation {
+/* Pin button */
+.pin-btn {
+    position: absolute;
+    right: 40px;
+    top: 10px;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: all 0.2s ease;
+    z-index: 10;
+    padding: 4px 8px;
+}
+
+.pin-btn:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.block-card-container.pinned-top .pin-btn {
+    opacity: 1;
+    filter: hue-rotate(20deg);
+}
+
+.block-card-container.pinned-bottom .pin-btn {
+    opacity: 1;
+    filter: hue-rotate(180deg);
+}
+
+.block-card-container.pinned-top,
+.block-card-container.pinned-bottom {
+    cursor: default;
+}
+
+.block-card-container.pinned-top .drag-handle,
+.block-card-container.pinned-bottom .drag-handle {
+    opacity: 0 !important;
+    cursor: not-allowed;
+}
+
+/* ============================================================================
+   COLORIMETR\u00cdA TIPO TERMINAL - SYNTAX HIGHLIGHTING EN BLOQUES
+   ============================================================================ */
+
+/* Estilos base para inputs con colorimetr\u00eda */
+.editor-input,
+textarea.editor-input {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+/* Colorimetr\u00eda en bloques de texto (modo claro) */
+.text-card textarea.editor-input {
+    background: #fafafa;
+    color: #24292e;
+}
+
+/* Negritas y strong - Color keyword (rosa/rojo) */
+.editor-input::selection {
+    background: var(--syntax-keyword);
+    color: white;
+}
+
+/* Aplicar colores a markdown en inputs */
+.markdown-card textarea.editor-input,
+.text-card textarea.editor-input {
+    caret-color: var(--syntax-function);
+}
+
+/* Modo oscuro - Colorimetr\u00eda tipo terminal */
+body.dark-mode .text-card textarea.editor-input,
+body.dark-mode .markdown-card textarea.editor-input {
+    background: #0d1117;
+    color: #c9d1d9;
+    border-color: #30363d;
+}
+
+body.dark-mode .editor-input::placeholder {
+    color: var(--syntax-comment);
+}
+
+body.dark-mode .editor-input:focus {
+    border-color: var(--syntax-function);
+    box-shadow: 0 0 0 3px rgba(139, 233, 253, 0.1);
+}
+
+/* Lista - Bullets con color especial */
+.list-card textarea.editor-input,
+.numbered-card textarea.editor-input {
+    background: #fafafa;
+    color: #24292e;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+body.dark-mode .list-card textarea.editor-input,
+body.dark-mode .numbered-card textarea.editor-input {
+    background: #0d1117;
+    color: var(--syntax-keyword);
+    border-color: #30363d;
+    caret-color: var(--syntax-keyword);
+}
+
+/* T\u00edtulos - Colores vibrantes */
+.title-card input.editor-input {
+    font-weight: 600;
+    font-size: 1.1em;
+    color: var(--primary);
+}
+
+body.dark-mode .title-card input.editor-input {
+    background: #0d1117;
+    color: var(--syntax-tag);
+    border-color: #30363d;
+    font-weight: 700;
+}
+
+.subtitle-card input.editor-input {
+    font-weight: 500;
+    color: var(--syntax-function);
+}
+
+body.dark-mode .subtitle-card input.editor-input {
+    background: #0d1117;
+    color: var(--syntax-function);
+    border-color: #30363d;
+}
+
+/* Subt\u00edtulos y sub-subt\u00edtulos */
+body.dark-mode .subsubtitle-card input.editor-input,
+body.dark-mode .subtitle-italic-card input.editor-input {
+    background: #0d1117;
+    color: var(--syntax-variable);
+    border-color: #30363d;
+}
+
+/* C\u00f3digo - Mantener estilo oscuro */
+.code-input {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-color: #333333;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+body.dark-mode .code-input {
+    background: #0d1117;
+    color: #c9d1d9;
+    border-color: #30363d;
+}
+
+/* Tablas - Grid con colores */
+body.dark-mode .table-grid input {
+    background: #0d1117;
+    color: #c9d1d9;
+    border-color: #30363d;
+}
+
+body.dark-mode .table-grid input:nth-child(-n+10) {
+    background: #161b22;
+    color: var(--syntax-tag);
+    font-weight: 600;
+}
+
+body.dark-mode .table-grid input:focus {
+    border-color: var(--syntax-function);
+    box-shadow: 0 0 0 2px rgba(139, 233, 253, 0.15);
+}
+
+/* Referencias - Color especial */
+.ref-card input.editor-input {
+    color: var(--syntax-string);
+    font-style: italic;
+}
+
+body.dark-mode .ref-card input.editor-input {
+    background: #0d1117;
+    color: var(--syntax-string);
+    border-color: #30363d;
+}
+
+/* Citas IEEE - Color morado */
+.citation-card input.editor-input,
+.citation-card textarea.editor-input {
+    color: var(--syntax-number);
+}
+
+body.dark-mode .citation-card input.editor-input,
+body.dark-mode .citation-card textarea.editor-input {
+    background: #0d1117;
+    color: var(--syntax-number);
+    border-color: #30363d;
+}
+
+/* BibTeX - Colores especiales */
+.bibliography-card input.editor-input,
+.bibliography-card textarea.editor-input {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    color: var(--syntax-function);
+}
+
+body.dark-mode .bibliography-card input.editor-input,
+body.dark-mode .bibliography-card textarea.editor-input {
+    background: #0d1117;
+    color: var(--syntax-function);
+    border-color: #30363d;
+}
+
+/* Im\u00e1genes - Verde */
+.image-card input.editor-input {
+    color: var(--syntax-string);
+}
+
+body.dark-mode .image-card input.editor-input {
+    background: #0d1117;
+    color: var(--syntax-string);
+    border-color: #30363d;
+}
+
+/* Header - Colores sutiles */
+.header-card input.editor-input {
+    color: #586069;
+    font-size: 0.9em;
+}
+
+body.dark-mode .header-card input.editor-input {
+    background: #0d1117;
+    color: #8b949e;
+    border-color: #30363d;
+}
+
+/* F\u00f3rmulas - Color p\u00farpura */
+.formula-card textarea.editor-input {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    color: var(--syntax-number);
+}
+
+body.dark-mode .formula-card textarea.editor-input {
+    background: #0d1117;
+    color: var(--syntax-number);
+    border-color: #30363d;
+}
+
+/* AI Declaration - Rojo brillante */
+.ai-card textarea.editor-input {
+    color: var(--syntax-operator);
+}
+
+body.dark-mode .ai-card textarea.editor-input {
+    background: #0d1117;
+    color: var(--syntax-operator);
+    border-color: #30363d;
+}
+
+/* Mermaid - Cyan */
+.mermaid-card textarea.editor-input {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    color: var(--syntax-function);
+}
+
+body.dark-mode .mermaid-card textarea.editor-input {
+    background: #0d1117;
+    color: var(--syntax-function);
+    border-color: #30363d;
+}
+
+/* Inputs de grid (autor, materia, etc.) */
+body.dark-mode .grid-inputs input {
+    background: #0d1117;
+    color: #c9d1d9;
+    border-color: #30363d;
+}
+
+body.dark-mode .grid-inputs input:focus {
+    border-color: var(--syntax-function);
+    box-shadow: 0 0 0 2px rgba(139, 233, 253, 0.15);
+}
+
+/* Select en modo oscuro */
+body.dark-mode select.editor-input {
+    background: #0d1117;
+    color: #c9d1d9;
+    border-color: #30363d;
+}
+
+/* Botones especiales en modo oscuro */
+body.dark-mode .btn-ai {
+    background: var(--syntax-operator) !important;
+    color: white !important;
+}
+
+body.dark-mode .btn-save,
+body.dark-mode .btn-print {
+    background: var(--syntax-function) !important;
+    color: #0d1117 !important;
+}
+
+body.dark-mode .btn-import {
+    background: var(--syntax-string) !important;
+    color: #0d1117 !important;
+}
+
+/* Controles de tabla en modo oscuro */
+body.dark-mode .table-controls label {
+    color: #8b949e;
+}
+
+body.dark-mode .table-controls input[type="number"] {
+    background: #0d1117;
+    color: #c9d1d9;
+    border-color: #30363d;
+}
+
+body.dark-mode .table-controls .btn-add-row {
+    background: var(--syntax-string);
+    color: #0d1117;
+}
+
+body.dark-mode .table-controls .btn-remove-row {
+    background: var(--syntax-operator);
+    color: white;
+}
+
+/* Block type label con color */
+.block-type {
+    font-size: 0.75em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+body.dark-mode .block-type {
+    color: #8b949e;
+}
+
+/* Colores por tipo de bloque */
+body.dark-mode .title-card .block-type {
+    color: var(--syntax-tag);
+}
+
+body.dark-mode .subtitle-card .block-type {
+    color: var(--syntax-function);
+}
+
+body.dark-mode .text-card .block-type,
+body.dark-mode .markdown-card .block-type {
+    color: #c9d1d9;
+}
+
+body.dark-mode .list-card .block-type,
+body.dark-mode .numbered-card .block-type {
+    color: var(--syntax-keyword);
+}
+
+body.dark-mode .code-card .block-type {
+    color: var(--syntax-variable);
+}
+
+/* ============================================================================
+   ANIMACIONES ADICIONALES
+   ============================================================================ */
+
+/* Animación de fade-in para elementos que se cargan */
+@keyframes fadeIn {
     0% {
-        transform: scale(0.95);
-        opacity: 0.8;
-    }
-    50% {
-        transform: scale(1.02);
+        opacity: 0;
     }
     100% {
+        opacity: 1;
+    }
+}
+
+/* Animación de pulso suave para elementos destacados */
+@keyframes pulse {
+    0%, 100% {
         transform: scale(1);
         opacity: 1;
     }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+}
+
+/* Animación de sacudida para validación de errores */
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(5px);
+    }
+}
+
+/* Animación de bounce suave */
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) translateY(-50px);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05) translateY(0);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Animación de deslizamiento desde la izquierda */
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animación de deslizamiento desde la derecha */
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animación de rotación suave */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Animación de brillo/shimmer para carga */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/* Clase auxiliar para aplicar fade-in */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Clase auxiliar para aplicar bounce-in */
+.bounce-in {
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Clase auxiliar para error shake */
+.shake-error {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Mejorar transición del modo oscuro */
+body, 
+.toolbox,
+.block-card,
+.preview-paper,
+#preview-container,
+#editor-container,
+.ribbon-container {
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animación de hover para enlaces de citación */
+.citation-link {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.citation-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.citation-link:hover::after {
+    width: 100%;
+}
+
+/* Animación para el scrollbar */
+#preview-container::-webkit-scrollbar-thumb {
+    transition: background 0.3s ease;
+}
+
+#preview-container::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary);
+}
+
+/* Animación de entrada para el mensaje de bienvenida */
+.welcome-message {
+    animation: fadeIn 0.8s ease-in;
+}
+
+/* Suavizar transiciones de los controles de zoom */
+.zoom-controls button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.zoom-controls button:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.zoom-controls button:active {
+    transform: scale(0.95);
+}
+
+body.dark-mode .ref-card .block-type,
+body.dark-mode .citation-card .block-type {
+    color: var(--syntax-string);
+}
+
+body.dark-mode .image-card .block-type {
+    color: var(--syntax-string);
+}
+
+body.dark-mode .ai-card .block-type {
+    color: var(--syntax-operator);
+}
+
+body.dark-mode .table-card .block-type {
+    color: var(--syntax-function);
+}
+
+body.dark-mode .formula-card .block-type,
+body.dark-mode .mermaid-card .block-type {
+    color: var(--syntax-number);
+}
+
+body.dark-mode .bibliography-card .block-type {
+    color: var(--syntax-function);
 }

@@ -61,7 +61,7 @@ Aplicación web 100% cliente para generar documentos académicos profesionales c
 
 ## Demo en Vivo
 
-**GitHub Pages:** [https://JorgeTSW.github.io/generador-reportes-academicos/](https://JorgeTSW.github.io/generador-reportes-academicos/)
+**GitHub Pages:** [[https://JorgeTSW.github.io/generador-reportes-academicos/](https://notyorch.github.io/generador-reportes-academicos/)](https://notyorch.github.io/generador-reportes-academicos/)
 
 ---
 
